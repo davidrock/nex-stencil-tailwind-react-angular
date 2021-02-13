@@ -17,6 +17,20 @@
         "style": "scss",
         "linter": "eslint"
       }
+    },
+    "@nrwl/angular:application": {
+      "style": "scss",
+      "linter": "eslint",
+      "unitTestRunner": "jest",
+      "e2eTestRunner": "cypress"
+    },
+    "@nrwl/angular:library": {
+      "style": "scss",
+      "linter": "eslint",
+      "unitTestRunner": "jest"
+    },
+    "@nrwl/angular:component": {
+      "style": "scss"
     }
   },
   "defaultProject": "frontend",
@@ -28,7 +42,9 @@
       "targets": {
         "build": {
           "executor": "@nrwl/web:build",
-          "outputs": ["{options.outputPath}"],
+          "outputs": [
+            "{options.outputPath}"
+          ],
           "options": {
             "outputPath": "dist/apps/frontend",
             "index": "apps/frontend/src/index.html",
@@ -39,7 +55,9 @@
               "apps/frontend/src/favicon.ico",
               "apps/frontend/src/assets"
             ],
-            "styles": ["apps/frontend/src/styles.scss"],
+            "styles": [
+              "apps/frontend/src/styles.scss"
+            ],
             "scripts": [],
             "webpackConfig": "@nrwl/react/plugins/webpack"
           },
@@ -82,12 +100,16 @@
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["apps/frontend/**/*.{ts,tsx,js,jsx}"]
+            "lintFilePatterns": [
+              "apps/frontend/**/*.{ts,tsx,js,jsx}"
+            ]
           }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/apps/frontend"],
+          "outputs": [
+            "coverage/apps/frontend"
+          ],
           "options": {
             "jestConfig": "apps/frontend/jest.config.js",
             "passWithNoTests": true
@@ -116,7 +138,224 @@
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["apps/frontend-e2e/**/*.{js,ts}"]
+            "lintFilePatterns": [
+              "apps/frontend-e2e/**/*.{js,ts}"
+            ]
+          }
+        }
+      }
+    },
+    "design-system": {
+      "projectType": "library",
+      "generators": {
+        "@nxext/stencil:component": {
+          "style": "scss",
+          "storybook": false
+        }
+      },
+      "root": "libs/design-system",
+      "sourceRoot": "libs/design-system/src",
+      "targets": {
+        "test": {
+          "executor": "@nxext/stencil:test",
+          "options": {
+            "projectType": "library",
+            "configPath": "libs/design-system/stencil.config.ts"
+          }
+        },
+        "e2e": {
+          "executor": "@nxext/stencil:e2e",
+          "options": {
+            "projectType": "library",
+            "configPath": "libs/design-system/stencil.config.ts"
+          }
+        },
+        "build": {
+          "executor": "@nxext/stencil:build",
+          "options": {
+            "projectType": "library",
+            "configPath": "libs/design-system/stencil.config.ts"
+          }
+        },
+        "serve": {
+          "executor": "@nxext/stencil:build",
+          "options": {
+            "projectType": "library",
+            "configPath": "libs/design-system/stencil.config.ts",
+            "serve": true,
+            "watch": true
+          }
+        }
+      }
+    },
+    "design-system-react": {
+      "root": "libs/design-system-react",
+      "sourceRoot": "libs/design-system-react/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/design-system-react/**/*.{ts,tsx,js,jsx}"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/libs/design-system-react"
+          ],
+          "options": {
+            "jestConfig": "libs/design-system-react/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "angular-frontend": {
+      "projectType": "application",
+      "root": "apps/angular-frontend",
+      "sourceRoot": "apps/angular-frontend/src",
+      "prefix": "myworkspace",
+      "targets": {
+        "build": {
+          "executor": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/angular-frontend",
+            "index": "apps/angular-frontend/src/index.html",
+            "main": "apps/angular-frontend/src/main.ts",
+            "polyfills": "apps/angular-frontend/src/polyfills.ts",
+            "tsConfig": "apps/angular-frontend/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "apps/angular-frontend/src/favicon.ico",
+              "apps/angular-frontend/src/assets"
+            ],
+            "styles": [
+              "apps/angular-frontend/src/styles.scss"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/angular-frontend/src/environments/environment.ts",
+                  "with": "apps/angular-frontend/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "executor": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "angular-frontend:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "angular-frontend:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "executor": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "angular-frontend:build"
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/angular-frontend/src/**/*.ts",
+              "apps/angular-frontend/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/apps/angular-frontend"
+          ],
+          "options": {
+            "jestConfig": "apps/angular-frontend/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "angular-frontend-e2e": {
+      "root": "apps/angular-frontend-e2e",
+      "sourceRoot": "apps/angular-frontend-e2e/src",
+      "projectType": "application",
+      "targets": {
+        "e2e": {
+          "executor": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/angular-frontend-e2e/cypress.json",
+            "tsConfig": "apps/angular-frontend-e2e/tsconfig.e2e.json",
+            "devServerTarget": "angular-frontend:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "angular-frontend:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/angular-frontend-e2e/**/*.{js,ts}"
+            ]
+          }
+        }
+      }
+    },
+    "design-system-angular": {
+      "projectType": "library",
+      "root": "libs/design-system-angular",
+      "sourceRoot": "libs/design-system-angular/src",
+      "prefix": "myworkspace",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/design-system-angular/src/**/*.ts",
+              "libs/design-system-angular/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/libs/design-system-angular"
+          ],
+          "options": {
+            "jestConfig": "libs/design-system-angular/jest.config.js",
+            "passWithNoTests": true
           }
         }
       }

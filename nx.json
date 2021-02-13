@@ -17,6 +17,14 @@
   },
   "projects": {
     "frontend": { "tags": [] },
-    "frontend-e2e": { "tags": [], "implicitDependencies": ["frontend"] }
+    "frontend-e2e": { "tags": [], "implicitDependencies": ["frontend"] },
+    "design-system": { "tags": [] },
+    "design-system-react": { "tags": [] },
+    "angular-frontend": { "tags": [] },
+    "angular-frontend-e2e": {
+      "tags": [],
+      "implicitDependencies": ["angular-frontend"]
+    },
+    "design-system-angular": { "tags": [] }
   }
 }
